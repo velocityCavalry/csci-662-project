@@ -11,7 +11,7 @@ We modify [the original codebase](https://github.com/Yushi-Hu/VisualSketchpad) a
 | **GPT-4o**                | Observed     | 72.0        | 71.8         | 64.0        | 84.4         | 87.2           |
 | **Sketchpad + GPT-4o**    | Observed     | 81.1 (+9.1) | 83.9 (+12.1) | 70.7 (+6.7) | 94.7 (+10.3) | 94.9 (+7.7)    |
 | ** Llava-v1.5-7B**        | Observed     | 59.4        | 58.0         | 52.7        | -            | -              |
-The reproduction results and the reported results for each task in accuracy. The numbers in the parentheses are the improvement of sketchpad over the GPT-4o baseline. For the visualization, please see our report.
+The reproduction results and the reported results for each task in accuracy. The numbers in the parentheses are the improvement of sketchpad over the GPT-4o baseline. For the visualization, please see our report or run `python plot.py` to render the figure.
 
 # Installation
 

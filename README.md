@@ -71,10 +71,11 @@ The implementation of the inference of the llava model is in `blink_baseline/que
 The result accuracy will be output by the above command.
 
 # Evaluation
-To evaluate the agent, do
+To evaluate the output and calculate the accuracy of each task, do
 ```bash
-
+python eval.py --output_dir {the output directory you passed in run_task.py} 
 ```
+To evaluate baseline, pass in `--eval_baseline`. 
 
 # Run the Additional Experiments
 To run the additional experiments:

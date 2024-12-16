@@ -1,0 +1,13 @@
+*tasks*
+vision_experts/.DS_Store
+vision_experts/Depth-Anything/.DS_Store
+vision_experts/simplified_som/.DS_Store
+vision_experts/simplified_som/ops/.DS_Store
+.DS_Store
+agent/.DS_Store
+blink_baseline/.DS_Store
+vision_experts/.DS_Store
+math_outputs
+*outputs*
+*pycache*
+*.idea*

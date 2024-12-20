@@ -45,6 +45,7 @@ if __name__ == "__main__":
             "graph_maxflow",
             "math_convexity",
             "math_parity",
+            "geometry_new",
             "winner_id",
         ],
         help="The task name",
@@ -52,7 +53,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--baseline", action="store_true", help="Run the baseline model"
     )
-    parser.add_argument("--output_dir", type=str, required=True, help="Output directory")
     args = parser.parse_args()
 
     if args.task in [
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         task_type = "vision"
         task_name = None
 
-    elif args.task in ["geometry"]:
+    elif args.task in ["geometry", "geometry_new"]:
         task_type = "geo"
         task_name = None
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     run_task(
         args.task,
-        args.output_dir,
+        "outputs",
         task_type=task_type,
         task_name=task_name,
         baseline=args.baseline,

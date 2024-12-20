@@ -677,7 +677,10 @@ ACTION 1: No action needed.
 ANSWER: odd. TERMINATE
 """
         # bp()
-        taskprompt = self.task2prompt[self.subtask]
+        if self.subtask in ["new_math"]:
+            taskprompt = ex
+        else:
+            taskprompt = self.task2prompt[self.subtask]
         # prompt += f"# USER REQUEST #: {self.task2prompt[self.subtask]}\n"
         if self.subtask in ["math_breakpoint", "math_convexity", "math_parity"]:
             code = ex["code"]
@@ -734,7 +737,8 @@ ANSWER: odd. TERMINATE
 
 
 class GeoPrompt:
-    def __init__(self) -> None:
+    def __init__(self, baseline=False) -> None:
+        self.baseline = baseline
         return
 
     def initial_prompt(self, ex, n_images: int) -> str:
@@ -932,20 +936,32 @@ ACTION 1: No action needed.
 ANSWER: 10. TERMINATE
 """
 
-        prompt = initial_prompt
+        prompt = "" if self.baseline else initial_prompt
 
-        # test example
-        question = ex["problem_text"]
-        diagram_logic_form = ex["logic_form"]["diagram_logic_form"]
-        image_path_code = ex["image_path_code"]
-        code = ex["code"]
+        if "level" in ex:
+            question = ex["problem"]
+            if not self.baseline:
+                prompt += f"# USER REQUEST #: {question}\nYou can draw auxiliary lines to solve the given question: [{question}]\nPropose matplotlib code to draw the auxiliary lines. Make sure to label the beginning and end point of the auxiliary line."
+            else:
+                prompt += question
+        else:
+            # test example
+            question = ex["problem_text"]
+            diagram_logic_form = ex["logic_form"]["diagram_logic_form"]
+            image_path_code = ex["image_path_code"]
+            code = ex["code"]
 
-        prompt += (
-            f"USER REQUEST #: Given the geometry diagram <img src='{image_path_code}'> and the diagram logic form {diagram_logic_form}"
-            + f"Below is the original matplotlib code of the geometry: {code}\nYou must draw auxiliary lines to solve the following question: [{question}]\n"
-            + "Propose matplotlib code to draw the auxiliary lines. Make sure to label the beginning and end point of the auxiliary line."
-        )
-        prompt += "Now please generate only THOUGHT 0 and ACTION 0 in RESULT. If no action needed, also reply with ANSWER: <your answer> and ends with TERMINATE in the RESULT:\n# RESULT #:\n"
+            prompt += (
+                f"USER REQUEST #: Given the geometry diagram <img src='{image_path_code}'> and the diagram logic form {diagram_logic_form}"
+                + f"Below is the original matplotlib code of the geometry: {code}\nYou must draw auxiliary lines to solve the following question: [{question}]\n"
+                + "Propose matplotlib code to draw the auxiliary lines. Make sure to label the beginning and end point of the auxiliary line."
+            )
+        if not self.baseline:
+            prompt += "Now please generate only THOUGHT 0 and ACTION 0 in RESULT. If no action needed, also reply with ANSWER: <your answer> and ends with TERMINATE in the RESULT:\n# RESULT #:\n"
+        else:
+            prompt += (
+                " Please reply with ANSWER: <your answer> and ends with a '. TERMINATE'"
+            )
         return prompt
 
     def get_parsing_feedback(self, error_message: str, error_code: str) -> str:

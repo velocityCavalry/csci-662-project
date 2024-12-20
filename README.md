@@ -52,11 +52,11 @@ DEPTH_ANYTHING_ADDRESS = "[YOUR Depth-Anything SERVER ADDRESS]"
 
 # Running the experiments
 
-### Data + Preprocessing
+### 1. Data + Preprocessing
 
 The preprocessed data by the original author is in this [Google Drive Link](https://drive.google.com/file/d/1qtbfI7Q9B7pq-WR20q0-OE6OetJqoitS/view?usp=sharing). Please download, unzip, and put the content in the `tasks` folder. Each instance in each task has a separate folder.
 
-### Run the agent
+### 2. Run the agent
 
 To run each task, do
 
@@ -67,18 +67,18 @@ python run_task.py --task {blink_spatial, blink_jigsaw, blink_depth, math_convex
 
 To run our baseline code of GPT-4o, add the `--baseline` flag to the above command, the corresponding method is in `agent/baseline.py`. This will run the whole task and save all execution traces to `{your output directory}`.
 
-### Run the Llava model for the BLINK dataset
+### 3. Run the Llava model for the BLINK dataset
 
 We write the baseline code based on [the reference GPT4v implementation of BLINK](https://github.com/zeyofu/BLINK_Benchmark).
 
-### Run experiments on the new MATH dataset
+### 4. Run experiments on the new MATH dataset
 
 ```bash
 cd agents
 python run_task.py --task geometry_new --output_dir {your output directory}
 ```
 
-To run the baseline code of GPT-40, add the `--baseline` flag to the above command.
+To run the baseline code of GPT-4o, add the `--baseline` flag to the above command.
 
 #### Installation
 
